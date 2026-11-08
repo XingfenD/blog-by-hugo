@@ -12,11 +12,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/blog-by-hugo/scss/style.min.09e8f7af1e54367e62fd58eab012374e49046189ed9835dbf12807e82cd189aa.css"><meta property='og:title' content="Linux版QQ音乐无法打开问题分析及修复">
+<link rel="stylesheet" href="/blog-by-hugo/scss/style.min.33552493c581b45e983533022e5e2cfc2ad94920a7adcc01230e0e4ccc3e4905.css"><meta property='og:title' content="Linux版QQ音乐无法打开问题分析及修复">
 <meta property='og:description' content="先说结论 QQ Music 官方 Linux DEB 包可以正常启动。崩溃原因不是显卡硬件故障，而是 QQ Music 内置的旧版 Electron/Chromium 沙箱策略与当前系统 glibc 不兼容。\n通过 QQ Music 的用户级桌面启动项加入以下参数后，应用已经能够正常启动并保持运行：\n1 --disable-seccomp-filter-sandbox 系统环境 项目 值 架构 x86-64 内核 7.0.0-14-generic glibc 2.43-2ubuntu2 QQ Music 包 1.1.8，amd64 内置 Electron 8.2.1 内置 Chromium Chrome 80.0.3987.163 图形会话 Xwayland，显示 :0 QQ Music 的系统桌面文件原路径为：\n1 /usr/share/applications/qqmusic.desktop 崩溃证据 系统 coredump 报告显示：\n1 2 3 4 5 6 Signal: 31 (SIGSYS) Command Line: /opt/qqmusic/qqmusic --type=gpu-process ... --use-gl=disabled ... Stack trace: __clone3 (libc.so.6) Module: libseccomp.so.2 SIGSYS 表示进程执行了被 seccomp 过滤器拒绝的系统调用。这里的调用是 clone3，它被 glibc 用于创建线程。QQ Music 使用的 Electron 8.2.1 搭载了较旧的 Chromium seccomp 白名单，没有允许新系统环境下的 clone3，因此 GPU、renderer 等子进程在创建线程时被系统直接终止。\n">
 <meta property='og:url' content='https://xingfend.github.io/blog-by-hugo/post/qqmusic_linux_amd64_fix/'>
 <meta property='og:site_name' content='星分'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-08-12T06:12:02&#43;00:00'/><meta property='article:modified_time' content='2026-08-12T06:22:39&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-08-12T06:12:02&#43;00:00'/><meta property='article:modified_time' content='2026-11-08T18:57:12&#43;00:00'/>
 <meta name="twitter:title" content="Linux版QQ音乐无法打开问题分析及修复">
 <meta name="twitter:description" content="先说结论 QQ Music 官方 Linux DEB 包可以正常启动。崩溃原因不是显卡硬件故障，而是 QQ Music 内置的旧版 Electron/Chromium 沙箱策略与当前系统 glibc 不兼容。\n通过 QQ Music 的用户级桌面启动项加入以下参数后，应用已经能够正常启动并保持运行：\n1 --disable-seccomp-filter-sandbox 系统环境 项目 值 架构 x86-64 内核 7.0.0-14-generic glibc 2.43-2ubuntu2 QQ Music 包 1.1.8，amd64 内置 Electron 8.2.1 内置 Chromium Chrome 80.0.3987.163 图形会话 Xwayland，显示 :0 QQ Music 的系统桌面文件原路径为：\n1 /usr/share/applications/qqmusic.desktop 崩溃证据 系统 coredump 报告显示：\n1 2 3 4 5 6 Signal: 31 (SIGSYS) Command Line: /opt/qqmusic/qqmusic --type=gpu-process ... --use-gl=disabled ... Stack trace: __clone3 (libc.so.6) Module: libseccomp.so.2 SIGSYS 表示进程执行了被 seccomp 过滤器拒绝的系统调用。这里的调用是 clone3，它被 glibc 用于创建线程。QQ Music 使用的 Electron 8.2.1 搭载了较旧的 Chromium seccomp 白名单，没有允许新系统环境下的 clone3，因此 GPU、renderer 等子进程在创建线程时被系统直接终止。\n">
     <link rel="shortcut icon" href="/blog-by-hugo/favicon.ico" />
@@ -588,7 +588,7 @@
 
 
         <span>
-            最后更新于 Aug 12, 2026 06:22 UTC
+            最后更新于 Nov 08, 2026 18:57 UTC
         </span>
     </section></footer>
 
@@ -720,7 +720,7 @@
             </main>
         </div>
         
-<script type="text/javascript" src="/blog-by-hugo/ts/main.2932e63179ccc734a9017a14204eba1647ee530fb59a8816661d0b683a9ebf42.js" defer></script>
+<script type="text/javascript" src="/blog-by-hugo/ts/main.04c2aff46f8ef5f3b51531020807130bed6006bd1e580e91a35853557876c728.js" defer></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
